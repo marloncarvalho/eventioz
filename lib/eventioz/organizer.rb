@@ -8,18 +8,17 @@ module Eventioz
       h.each { |key, value| send("#{key}=", value) }
     end
 
-    # Returns all events created by this organizer.
-    def events
+    def self.all(account)
       result = []
 
-      json = JSON.parse RestClient.get("#{BASE_URL}admin/organizers/#{@cached_slug}/events.json?api_key=#{@api_key}")
-      json.each do |event|
-        e = Eventioz::Event.new({})
-        event['event'].each do |key, value|
-          e.send("#{key}=", value)
+      json = JSON.parse RestClient.get("#{BASE_URL}admin/account.json?api_key=#{account.api_key}")
+      json.each do |org|
+        o = Eventioz::Organizer.new({})
+        org['organizer'].each do |key, value|
+          o.send("#{key}=", value)
         end
-        e.api_key = @api_key
-        result << e
+        o.api_key = @api_key
+        result << o
       end
 
       result

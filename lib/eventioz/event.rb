@@ -9,21 +9,27 @@ module Eventioz
       h.each { |key, value| send("#{key}=", value) }
     end
 
-    # Returns the event registrations.
-    def registrations
+    # Returns all events created by a specific organizer.
+    #
+    # Arguments:
+    #   account: User account on Eventioz.
+    #   organizer_slug: Organizer slug on Eventioz.
+    def self.all(account, organizer_slug)
       result = []
 
-      json = JSON.parse RestClient.get("#{BASE_URL}admin/events/#{@cached_slug}/registrations.json?api_key=#{@api_key}")
-      json.each do |reg|
-        r = Eventioz::Registration.new({})
-        reg['registration'].each do |key, value|
-          r.send("#{key}=", value)
+      json = JSON.parse RestClient.get("#{BASE_URL}admin/organizers/#{organizer_slug}/events.json?api_key=#{account.api_key}")
+      json.each do |event|
+        e = Eventioz::Event.new({})
+        event['event'].each do |key, value|
+          e.send("#{key}=", value)
         end
-        result << r
+        e.api_key = @api_key
+        result << e
       end
 
       result
     end
+
   end
 
 end
