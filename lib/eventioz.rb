@@ -24,12 +24,3 @@ module Eventioz
   end
 
 end
-
-account = Eventioz.login(
-    :login => 'marlon.carvalho@gmail.com',
-    :password => 'animal')
-
-org = Eventioz::Organizer.all(account)[0]
-Eventioz::Event.all(account, org.cached_slug).each do |event|
-  puts event.name
-end
