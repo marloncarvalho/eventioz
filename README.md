@@ -30,15 +30,15 @@ First off, you have to log in to the Eventioz:
 
 Don't worry. This gem doesn't store your username and password in any way. It uses it only to sign in and get the API Key.
 Once it has the API Key, it discards the username and password. Once you have the account data, you can access your organizers,
-events and registrations. The next example shows how you can access the organizers.
+events and registrations. The next example shows how you can get all organizers.
 
     Eventioz::Organizer.all(account)
 
-To access all events that belong to a Organizer:
+To get all events that belong to an Organizer:
 
     Eventioz::Event.all(account, organizer.cached_slug)
 
-To access all registrations from an event:
+To get all registrations from an event:
 
     Eventioz::Registration.all(account, event.cached_slug)
 
