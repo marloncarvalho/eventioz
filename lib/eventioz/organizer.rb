@@ -8,10 +8,10 @@ module Eventioz
       h.each { |key, value| send("#{key}=", value) }
     end
 
-    def self.all(account)
+    def self.all(api_key)
       result = []
 
-      json = JSON.parse RestClient.get("#{BASE_URL}admin/account.json?api_key=#{account.api_key}")
+      json = JSON.parse RestClient.get("#{BASE_URL}admin/account.json?api_key=#{api_key}")
       json.each do |org|
         o = Eventioz::Organizer.new({})
         org['organizer'].each do |key, value|

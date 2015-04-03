@@ -32,15 +32,15 @@ Don't worry. This gem doesn't store your username and password in any way. It us
 Once it has the API Key, it discards the username and password. Once you have the account data, you can access your organizers,
 events and registrations. The next example shows how you can get all organizers.
 
-    Eventioz::Organizer.all(account)
+    Eventioz::Organizer.all(api_key)
 
 To get all events that belong to an Organizer:
 
-    Eventioz::Event.all(account, organizer.cached_slug)
+    Eventioz::Event.all(api_key, organizer.cached_slug)
 
 To get all registrations from an event:
 
-    Eventioz::Registration.all(account, event.cached_slug)
+    Eventioz::Registration.all(api_key, event.cached_slug)
 
 ## Contributing
 

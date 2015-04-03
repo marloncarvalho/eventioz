@@ -11,14 +11,10 @@ module Eventioz
     end
 
     # Calls the Eventioz API to retrieve all tickets purchased to a specific event.
-    #
-    # Arguments:
-    #   event_slug: Event Slug.
-    #   organizer_slug: Organizer slug on Eventioz.
-    def self.all(account, event_slug)
+    def self.all(api_key, event_slug)
         result = []
 
-        json = JSON.parse RestClient.get("#{BASE_URL}admin/events/#{event_slug}/registrations.json?api_key=#{account.api_key}")
+        json = JSON.parse RestClient.get("#{BASE_URL}admin/events/#{event_slug}/registrations.json?api_key=#{api_key}")
         json.each do |reg|
           r = Eventioz::Registration.new({})
           reg['registration'].each do |key, value|

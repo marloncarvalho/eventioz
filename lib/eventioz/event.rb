@@ -10,14 +10,10 @@ module Eventioz
     end
 
     # Returns all events created by a specific organizer.
-    #
-    # Arguments:
-    #   account: User account on Eventioz.
-    #   organizer_slug: Organizer slug on Eventioz.
-    def self.all(account, organizer_slug)
+    def self.all(api_key, organizer_slug)
       result = []
 
-      json = JSON.parse RestClient.get("#{BASE_URL}admin/organizers/#{organizer_slug}/events.json?api_key=#{account.api_key}")
+      json = JSON.parse RestClient.get("#{BASE_URL}admin/organizers/#{organizer_slug}/events.json?api_key=#{api_key}")
       json.each do |event|
         e = Eventioz::Event.new({})
         event['event'].each do |key, value|
